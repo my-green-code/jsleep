@@ -1,11 +1,11 @@
 import { IResourceOptimizer } from '../interfaces/IResourceOptimizer';
 
 export class ResourceOptimizer implements IResourceOptimizer {
-  private originalRAF: typeof requestAnimationFrame;
+  private readonly originalRAF: typeof requestAnimationFrame;
   private throttledRAF: typeof requestAnimationFrame = window.requestAnimationFrame;
-  private originalFetch: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+  private readonly originalFetch: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
   private throttledFetch: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
-  private queuedRequests: Array<() => void> = [];
+  private readonly queuedRequests: Array<() => void> = [];
   private readonly reduceFPS: boolean;
   private readonly stopNetworkCalls: boolean;
   private readonly reduceAnimations: boolean;
@@ -74,7 +74,7 @@ export class ResourceOptimizer implements IResourceOptimizer {
             const response = await this.originalFetch(input, init);
             resolve(response);
           } catch (error) {
-            reject(error);
+            reject(error instanceof Error ? error : new Error(String(error)));
           }
         };
 

@@ -3,8 +3,8 @@ import { IIdleDetector } from '../interfaces/IIdleDetector';
 export class IdleDetector implements IIdleDetector {
   private isIdleState: boolean = false;
   private idleTimer: number | null = null;
-  private idleCallbacks: Array<() => void> = [];
-  private activeCallbacks: Array<() => void> = [];
+  private readonly idleCallbacks: Array<() => void> = [];
+  private readonly activeCallbacks: Array<() => void> = [];
   private readonly timeout: number;
   private readonly events: string[] = ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'];
 
