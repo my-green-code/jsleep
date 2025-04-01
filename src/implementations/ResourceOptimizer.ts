@@ -3,8 +3,8 @@ import { IResourceOptimizer } from '../interfaces/IResourceOptimizer';
 export class ResourceOptimizer implements IResourceOptimizer {
   private originalRAF: typeof requestAnimationFrame;
   private throttledRAF: typeof requestAnimationFrame = window.requestAnimationFrame;
-  private originalFetch: typeof fetch;
-  private throttledFetch: typeof fetch = window.fetch;
+  private originalFetch: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+  private throttledFetch: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
   private queuedRequests: Array<() => void> = [];
   private readonly reduceFPS: boolean;
   private readonly stopNetworkCalls: boolean;
@@ -19,7 +19,8 @@ export class ResourceOptimizer implements IResourceOptimizer {
     this.stopNetworkCalls = stopNetworkCalls;
     this.reduceAnimations = reduceAnimations;
     this.originalRAF = window.requestAnimationFrame;
-    this.originalFetch = window.fetch;
+    this.originalFetch = window.fetch.bind(window);
+    this.throttledFetch = this.originalFetch;
   }
 
   public start(): void {
@@ -49,7 +50,6 @@ export class ResourceOptimizer implements IResourceOptimizer {
       document.body.style.removeProperty('transition-play-state');
     }
 
-    // Execute any queued requests
     while (this.queuedRequests.length > 0) {
       const request = this.queuedRequests.shift();
       if (request) request();
@@ -67,12 +67,15 @@ export class ResourceOptimizer implements IResourceOptimizer {
   }
 
   private setupFetchThrottling(): void {
-    this.throttledFetch = async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
-      return new Promise((resolve: (value: Response) => void, reject: (reason?: any) => void) => {
-        const executeRequest = () => {
-          this.originalFetch(input, init)
-            .then(resolve)
-            .catch(reject);
+    this.throttledFetch = (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
+      return new Promise((resolve, reject) => {
+        const executeRequest = async () => {
+          try {
+            const response = await this.originalFetch(input, init);
+            resolve(response);
+          } catch (error) {
+            reject(error);
+          }
         };
 
         if (!document.hidden) {
@@ -83,6 +86,6 @@ export class ResourceOptimizer implements IResourceOptimizer {
       });
     };
 
-    window.fetch = this.throttledFetch;
+    window.fetch = this.throttledFetch.bind(window);
   }
 } 

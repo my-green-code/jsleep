@@ -1,0 +1,48 @@
+.stats {
+	display: grid;
+	gap: 15px;
+	margin-bottom: 25px;
+}
+
+.stat-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px;
+	background-color: #f8f9fa;
+	border-radius: 8px;
+}
+
+.stat-item span:first-child {
+	font-weight: 500;
+	color: #666;
+}
+
+.energy-meter-container {
+	background-color: #eee;
+	border-radius: 10px;
+	overflow: hidden;
+	height: 20px;
+	width: 100%;
+}
+
+.energy-meter {
+	height: 100%;
+	background-color: #e74c3c;
+	transition: width 0.3s ease;
+	width: 0%;
+}
+
+.energy-meter.efficient {
+	background-color: #2ecc71;
+}
+
+.api-status {
+	margin-top: 15px;
+	padding: 15px;
+	background-color: #f8f9fa;
+	border-radius: 8px;
+	text-align: center;
+	font-size: 14px;
+	color: #666;
+}

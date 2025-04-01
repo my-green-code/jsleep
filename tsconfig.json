@@ -1,7 +1,8 @@
 {
 	"compilerOptions": {
 		"target": "es2015",
-		"module": "commonjs",
+		"module": "es2015",
+		"moduleResolution": "node",
 		"declaration": true,
 		"outDir": "./dist",
 		"strict": true,
@@ -11,6 +12,6 @@
 		"lib": ["es2015", "dom"],
 		"types": ["node"]
 	},
-	"include": ["src"],
+	"include": ["src", "fix-imports.js"],
 	"exclude": ["node_modules", "dist", "**/*.test.ts"]
 }

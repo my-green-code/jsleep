@@ -11,6 +11,10 @@ A TypeScript library to optimize energy consumption of web applications by reduc
 - Callback hooks for idle and active states
 - Automatic cleanup on destroy
 
+## Benchmark
+
+![image info](./bench1.png)
+
 ## Installation
 
 ```bash

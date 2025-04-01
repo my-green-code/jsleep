@@ -5,7 +5,7 @@
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
-		"build": "tsc",
+		"build": "tsc && node fix-imports.js",
 		"test": "jest",
 		"prepare": "npm run build",
 		"examples": "node examples/server.js"

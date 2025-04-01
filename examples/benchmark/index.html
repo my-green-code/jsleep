@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>JSleep Energy Benchmark</title>
+		<link rel="stylesheet" href="styles/main.css" />
+		<link rel="stylesheet" href="styles/animations.css" />
+		<link rel="stylesheet" href="styles/controls.css" />
+		<link rel="stylesheet" href="styles/metrics.css" />
+		<link rel="stylesheet" href="styles/responsive.css" />
+	</head>
+	<body>
+		<h1>JSleep Energy Benchmark</h1>
+
+		<div class="benchmark-container">
+			<div class="benchmark-section">
+				<h2>Without JSleep</h2>
+				<div class="stats">
+					<div class="stat-item">
+						<span>CPU Usage:</span>
+						<span id="cpu-without">0%</span>
+					</div>
+					<div class="stat-item">
+						<span>Memory Usage:</span>
+						<span id="memory-without">0 MB</span>
+					</div>
+					<div class="stat-item">
+						<span>Network Calls:</span>
+						<span id="network-without">0</span>
+					</div>
+					<div class="stat-item">
+						<span>Energy Impact:</span>
+						<div class="energy-meter-container">
+							<div class="energy-meter" id="energy-without"></div>
+						</div>
+					</div>
+				</div>
+				<div class="animation-container">
+					<div class="animation-grid" id="animations-without"></div>
+				</div>
+				<div class="api-status" id="api-status-without">API Status: Ready</div>
+			</div>
+
+			<div class="benchmark-section">
+				<h2>With JSleep</h2>
+				<div class="stats">
+					<div class="stat-item">
+						<span>CPU Usage:</span>
+						<span id="cpu-with">0%</span>
+					</div>
+					<div class="stat-item">
+						<span>Memory Usage:</span>
+						<span id="memory-with">0 MB</span>
+					</div>
+					<div class="stat-item">
+						<span>Network Calls:</span>
+						<span id="network-with">0</span>
+					</div>
+					<div class="stat-item">
+						<span>Energy Impact:</span>
+						<div class="energy-meter-container">
+							<div class="energy-meter" id="energy-with"></div>
+						</div>
+					</div>
+				</div>
+				<div class="animation-container">
+					<div class="animation-grid" id="animations-with"></div>
+				</div>
+				<div class="api-status" id="api-status-with">API Status: Ready</div>
+			</div>
+		</div>
+
+		<div class="controls">
+			<button id="startBtn">Start Benchmark</button>
+			<button id="stopBtn">Stop Benchmark</button>
+			<button id="resetBtn">Reset</button>
+		</div>
+
+		<script type="module" src="scripts/main.js"></script>
+	</body>
+</html>
